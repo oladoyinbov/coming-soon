@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X Predictions - Coming Soon</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. Global Reset & Setup --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #e0e0e0;
+            background-color: #0D0F1A;
+            
+            /* This conic-gradient creates the sharp diagonal split.
+              It starts from 135 degrees (top-right) at the center.
+              The green (#1a5a4a) goes from 0% to 50%.
+              The blue (#0D0F1A) goes from 50% to 100%.
+              A slight blur is added with a filter for a softer edge like the image.
+            */
+            background-image: conic-gradient(from 135deg at 50% 50%, #1a5a4a 0%, #1a5a4a 50%, #0D0F1A 50%, #0D0F1A 100%);
+            overflow-x: hidden;
+            
+            /* Layout */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 2. Main Layout Containers --- */
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Standard max-width */
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- 3. Header & Navigation --- */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .site-header nav ul {
+            list-style: none;
+        }
+
+        .site-header nav a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .site-header nav a:hover {
+            color: #fff;
+        }
+
+        /* --- 4. Main Content --- */
+        .main-content {
+            flex: 1; /* Takes up remaining vertical space */
+            display: flex;
+            align-items: center; /* Vertically centers the content */
+        }
+
+        .content-wrapper {
+            max-width: 550px; /* Constrains text width */
+        }
+
+        .content-wrapper .subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #a0a0a0;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-wrapper h1 {
+            font-size: 5rem; /* Large text */
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .content-wrapper .description {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin: 1.5rem 0 2.5rem 0;
+            line-height: 1.6;
+            max-width: 450px;
+        }
+
+        /* --- 5. Newsletter Form --- */
+        .newsletter-form label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #c0c0c0;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-field {
+            display: flex;
+            align-items: center;
+            /* Translucent pill design */
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 0.3rem; /* Small padding to house the button */
+            padding-left: 1.5rem;
+            max-width: 450px;
+        }
+
+        .form-field input {
+            flex: 1; /* Input takes all available space */
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Hides the default ugly parts of email input */
+        .form-field input:-webkit-autofill,
+        .form-field input:-webkit-autofill:hover, 
+        .form-field input:-webkit-autofill:focus, 
+        .form-field input:-webkit-autofill:active {
+            -webkit-text-fill-color: #fff;
+            -webkit-box-shadow: 0 0 0 30px #1a2a3a inset !important; /* Force custom autofill bg */
+            background-clip: content-box !important;
+        }
+
+        .form-field button {
+            background: #fff;
+            color: #0D0F1A; /* Dark text */
+            border: none;
+            border-radius: 50px; /* Full pill */
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-field button:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* --- 6. Responsive Design --- */
+        
+        /* Tablet */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .content-wrapper h1 {
+                font-size: 3.5rem;
+            }
+
+            .main-content {
+                /* Move content up, no longer perfectly centered */
+                align-items: flex-start;
+                padding-top: 5vh;
+            }
+
+            .content-wrapper {
+                max-width: 100%;
+            }
+            
+            .form-field {
+                max-width: 100%;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            body {
+                /* On small screens, the centered conic gradient looks odd.
+                  Switch to a simpler linear-gradient.
+                */
+                background-image: linear-gradient(160deg, #1a5a4a 0%, #0D0F1A 70%);
+            }
+
+            .site-header {
+                padding-top: 1.5rem;
+            }
+
+            .content-wrapper h1 {
+                font-size: 3rem;
+            }
+
+            .main-content {
+                padding-top: 8vh;
+            }
+            
+            /* Stack the form elements for easy mobile use.
+              The pill-container wrapper is removed.
+            */
+            .form-field {
+                flex-direction: column;
+                background: transparent;
+                border: none;
+                border-radius: 0;
+                padding: 0;
+                align-items: stretch; /* Make children full-width */
+            }
+
+            .form-field input {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50px;
+                padding: 1rem 1.5rem;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .form-field button {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header container">
+        <a href="#" class="logo">
+            <svg viewBox="0 0 100 100" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L58.78 41.22 L90 50 L58.78 58.78 L50 90 L41.22 58.78 L10 50 L41.22 41.22 Z" opacity="0.7"/>
+                <path d="M50 25 L58.78 41.22 L75 50 L58.78 58.78 L50 75 L41.22 58.78 L25 50 L41.22 41.22 Z" />
+            </svg>
+            <span>X Predictions</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content container">
+        <section class="content-wrapper">
+            
+            <p class="subtitle">We're almost there</p>
+            <h1>Coming Soon</h1>
+            <p class="description">
+                Join our newsletter to be the first to know when 
+                Sync launches and receive updates on the latest 
+                in technology and AI.
+            </p>
+
+            <form class="newsletter-form" id="newsletterForm">
+                <label for="email">Email *</label>
+                <div class="form-field">
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
+
+        </section>
+    </main>
+
+    <script>
+        // Simple JS to handle form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(event) {
+            // Prevent the form from actually submitting and reloading the page
+            event.preventDefault();
+            
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value;
+            
+            if (email) {
+                // Log to console and show a simple alert
+                console.log('Email submitted:', email);
+                alert('Thank you for signing up!');
+                
+                // Clear the input field
+                emailInput.value = '';
+            }
+        });
+    </script>
+
+</body>
+  </html>
